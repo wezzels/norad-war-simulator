@@ -1,0 +1,7 @@
+[
+  {"name": "Site Alpha", "lat": 39.0392, "lon": 125.7625, "country": "North Korea", "type": "adversary"},
+  {"name": "Site Beta", "lat": 35.6892, "lon": 51.3890, "country": "Iran", "type": "adversary"},
+  {"name": "Site Gamma", "lat": 55.7558, "lon": 37.6173, "country": "Russia", "type": "adversary"},
+  {"name": "Site Delta", "lat": 39.9042, "lon": 116.4074, "country": "China", "type": "adversary"},
+  {"name": "Site Epsilon", "lat": 33.6844, "lon": 73.0479, "country": "Pakistan", "type": "adversary"}
+]

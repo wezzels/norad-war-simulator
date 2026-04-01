@@ -1,0 +1,254 @@
+; SCENE: Scenario Editor
+; Create, edit, and save custom scenarios
+
+[gd_scene load_steps=2 format=3 uid="uid://scenario_editor"]
+
+[ext_resource type="Script" path="res://scripts/ui/scenario_editor.gd" id="1_editor"]
+
+[node name="ScenarioEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_editor")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.1, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 10.0
+offset_right = 150.0
+offset_bottom = 40.0
+text = "SCENARIO EDITOR"
+horizontal_alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = -20.0
+offset_bottom = -60.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Scenario Name:"
+
+[node name="NameEdit" type="LineEdit" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "New Scenario"
+placeholder_text = "Scenario Name"
+
+[node name="DescriptionLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Description:"
+
+[node name="DescriptionEdit" type="TextEdit" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+placeholder_text = "Describe your scenario..."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="DifficultyLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Difficulty (1-4):"
+
+[node name="DifficultySpinbox" type="SpinBox" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 4.0
+value = 1.0
+
+[node name="TimeLimitLabel" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Time Limit (sec, 0 = none):"
+
+[node name="TimeLimitSpinbox" type="SpinBox" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 3600.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LaunchSitesPanel" type="Panel" parent="Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/LaunchSitesPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/LaunchSitesPanel/VBox"]
+layout_mode = 2
+text = "Launch Sites"
+
+[node name="LaunchSitesList" type="ItemList" parent="Panel/VBoxContainer/HBoxContainer2/LaunchSitesPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/LaunchSitesPanel/VBox"]
+layout_mode = 2
+
+[node name="AddSiteButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/LaunchSitesPanel/VBox/ButtonContainer"]
+layout_mode = 2
+text = "Add"
+
+[node name="RemoveSiteButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/LaunchSitesPanel/VBox/ButtonContainer"]
+layout_mode = 2
+text = "Remove"
+
+[node name="CitiesPanel" type="Panel" parent="Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/CitiesPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/CitiesPanel/VBox"]
+layout_mode = 2
+text = "Target Cities"
+
+[node name="CitiesList" type="ItemList" parent="Panel/VBoxContainer/HBoxContainer2/CitiesPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+
+[node name="TargetButtons" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/CitiesPanel/VBox"]
+layout_mode = 2
+
+[node name="WavesPanel" type="Panel" parent="Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/WavesPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer2/WavesPanel/VBox"]
+layout_mode = 2
+text = "Missile Waves"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/HBoxContainer2/WavesPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="WavesContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer2/WavesPanel/VBox/ScrollContainer"]
+layout_mode = 2
+
+[node name="AddWaveButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer2/WavesPanel/VBox"]
+layout_mode = 2
+text = "Add Wave"
+
+[node name="InterceptorsPanel" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/InterceptorsPanel"]
+layout_mode = 2
+text = "Interceptors:"
+
+[node name="Label2" type="Label" parent="Panel/VBoxContainer/InterceptorsPanel"]
+layout_mode = 2
+text = "GBI:"
+
+[node name="GBISpinbox" type="SpinBox" parent="Panel/VBoxContainer/InterceptorsPanel"]
+layout_mode = 2
+max_value = 1000.0
+value = 44.0
+
+[node name="Label3" type="Label" parent="Panel/VBoxContainer/InterceptorsPanel"]
+layout_mode = 2
+text = "THAAD:"
+
+[node name="THAADSpinbox" type="SpinBox" parent="Panel/VBoxContainer/InterceptorsPanel"]
+layout_mode = 2
+max_value = 1000.0
+value = 100.0
+
+[node name="Label4" type="Label" parent="Panel/VBoxContainer/InterceptorsPanel"]
+layout_mode = 2
+text = "Patriot:"
+
+[node name="PatriotSpinbox" type="SpinBox" parent="Panel/VBoxContainer/InterceptorsPanel"]
+layout_mode = 2
+max_value = 1000.0
+value = 200.0
+
+[node name="VictoryPanel" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/VictoryPanel"]
+layout_mode = 2
+text = "Victory: Cities saved (min):"
+
+[node name="CitiesSavedSpinbox" type="SpinBox" parent="Panel/VBoxContainer/VictoryPanel"]
+layout_mode = 2
+max_value = 23.0
+value = 20.0
+
+[node name="ValidationLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Validation: Ready"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="SaveButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -50.0
+offset_right = -100.0
+offset_bottom = -10.0
+text = "Save"
+
+[node name="TestButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -50.0
+offset_right = 10.0
+offset_bottom = -10.0
+text = "Test"
+
+[node name="BackButton" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = -10.0
+text = "Back"

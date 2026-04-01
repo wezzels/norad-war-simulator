@@ -1,0 +1,179 @@
+; SCENE: Settings Menu
+; Graphics, audio, and gameplay settings
+
+[gd_scene load_steps=2 format=3 uid="uid://settings_menu"]
+
+[ext_resource type="Script" path="res://scripts/ui/settings_menu.gd" id="1_settings"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_settings")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.1, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 50.0
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 60.0
+offset_right = -50.0
+offset_bottom = -60.0
+
+[node name="Graphics" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="FullscreenLabel" type="Label" parent="TabContainer/Graphics"]
+layout_mode = 2
+text = "Fullscreen:"
+
+[node name="FullscreenCheck" type="CheckBox" parent="TabContainer/Graphics"]
+layout_mode = 2
+button_pressed = true
+
+[node name="VSyncLabel" type="Label" parent="TabContainer/Graphics"]
+layout_mode = 2
+text = "VSync:"
+
+[node name="VSyncCheck" type="CheckBox" parent="TabContainer/Graphics"]
+layout_mode = 2
+button_pressed = true
+
+[node name="MSAALabel" type="Label" parent="TabContainer/Graphics"]
+layout_mode = 2
+text = "Anti-Aliasing:"
+
+[node name="MSAAOption" type="OptionButton" parent="TabContainer/Graphics"]
+layout_mode = 2
+
+[node name="ShadowsLabel" type="Label" parent="TabContainer/Graphics"]
+layout_mode = 2
+text = "Shadows:"
+
+[node name="ShadowsCheck" type="CheckBox" parent="TabContainer/Graphics"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Audio" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="TabContainer/Audio"]
+layout_mode = 2
+text = "Master Volume:"
+
+[node name="MasterSlider" type="HSlider" parent="TabContainer/Audio"]
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SFXLabel" type="Label" parent="TabContainer/Audio"]
+layout_mode = 2
+text = "Sound Effects:"
+
+[node name="SFXSlider" type="HSlider" parent="TabContainer/Audio"]
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MusicLabel" type="Label" parent="TabContainer/Audio"]
+layout_mode = 2
+text = "Music:"
+
+[node name="MusicSlider" type="HSlider" parent="TabContainer/Audio"]
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="Gameplay" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="SpeedLabel" type="Label" parent="TabContainer/Gameplay"]
+layout_mode = 2
+text = "Default Speed:"
+
+[node name="SpeedSlider" type="HSlider" parent="TabContainer/Gameplay"]
+layout_mode = 2
+min_value = 0.5
+max_value = 10.0
+step = 0.5
+value = 1.0
+
+[node name="ContrailsLabel" type="Label" parent="TabContainer/Gameplay"]
+layout_mode = 2
+text = "Show Contrails:"
+
+[node name="ContrailsCheck" type="CheckBox" parent="TabContainer/Gameplay"]
+layout_mode = 2
+button_pressed = true
+
+[node name="AutoInterceptLabel" type="Label" parent="TabContainer/Gameplay"]
+layout_mode = 2
+text = "Auto-Intercept:"
+
+[node name="AutoInterceptCheck" type="CheckBox" parent="TabContainer/Gameplay"]
+layout_mode = 2
+
+[node name="DifficultyLabel" type="Label" parent="TabContainer/Gameplay"]
+layout_mode = 2
+text = "Difficulty:"
+
+[node name="DifficultyOption" type="OptionButton" parent="TabContainer/Gameplay"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = -10.0
+
+[node name="ApplyButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Apply"
+
+[node name="ResetButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reset Defaults"
+
+[node name="BackButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"

@@ -1,0 +1,10 @@
+[
+  {"id": "DSP-1", "name": "DSP-23", "type": "IR", "lon": 0, "lat": 0, "alt": 35786, "status": "online", "coverage": "Atlantic"},
+  {"id": "DSP-2", "name": "DSP-24", "type": "IR", "lon": 70, "lat": 0, "alt": 35786, "status": "online", "coverage": "Indian Ocean"},
+  {"id": "DSP-3", "name": "DSP-25", "type": "IR", "lon": -140, "lat": 0, "alt": 35786, "status": "online", "coverage": "Pacific"},
+  {"id": "SBIRS-1", "name": "SBIRS-GEO-1", "type": "IR-enhanced", "lon": -75, "lat": 0, "alt": 35786, "status": "online", "coverage": "Americas"},
+  {"id": "SBIRS-2", "name": "SBIRS-GEO-2", "type": "IR-enhanced", "lon": 95, "lat": 0, "alt": 35786, "status": "online", "coverage": "Asia-Pacific"},
+  {"id": "GPS-1", "name": "GPS-III-01", "type": "NDS", "lon": -30, "lat": 55, "alt": 20200, "status": "online", "coverage": "North Atlantic"},
+  {"id": "GPS-2", "name": "GPS-III-02", "type": "NDS", "lon": 60, "lat": 55, "alt": 20200, "status": "online", "coverage": "Eurasia"},
+  {"id": "GPS-3", "name": "GPS-III-03", "type": "NDS", "lon": 150, "lat": 55, "alt": 20200, "status": "standby", "coverage": "Pacific"}
+]

@@ -1,0 +1,27 @@
+{
+  "id": "scenario_01",
+  "name": "Tutorial",
+  "description": "Learn basic controls. A single missile is incoming.",
+  "difficulty": 1,
+  "time_limit": null,
+  "launch_sites": [
+    {"name": "Site Alpha", "missiles": 1}
+  ],
+  "missile_waves": [
+    {
+      "time": 0,
+      "missiles": [
+        {"origin": "Site Alpha", "target": "Washington DC", "type": "ICBM"}
+      ]
+    }
+  ],
+  "interceptors": {
+    "GBI": 30,
+    "THAAD": 50,
+    "Patriot": 100
+  },
+  "victory_conditions": {
+    "cities_saved_min": 22,
+    "time_limit_seconds": null
+  }
+}

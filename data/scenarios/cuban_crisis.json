@@ -1,0 +1,41 @@
+{
+  "id": "scenario_04",
+  "name": "Cuban Crisis",
+  "description": "Historical 1962 scenario. Soviet missiles from Cuba.",
+  "difficulty": 2,
+  "time_limit": null,
+  "launch_sites": [
+    {"name": "Site Gamma", "missiles": 15}
+  ],
+  "missile_waves": [
+    {
+      "time": 0,
+      "missiles": [
+        {"origin": "Site Gamma", "target": "Washington DC", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "New York", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Los Angeles", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Chicago", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Houston", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "San Francisco", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Seattle", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Miami", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Denver", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Boston", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "London", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Paris", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Berlin", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Tokyo", "type": "ICBM"},
+        {"origin": "Site Gamma", "target": "Seoul", "type": "ICBM"}
+      ]
+    }
+  ],
+  "interceptors": {
+    "GBI": 20,
+    "THAAD": 30,
+    "Patriot": 60
+  },
+  "victory_conditions": {
+    "cities_saved_min": 15,
+    "time_limit_seconds": null
+  }
+}

@@ -1,0 +1,72 @@
+; SCENE: Mushroom Cloud
+; Rising smoke column for nuclear detonation
+
+[gd_scene load_steps=4 format=3 uid="uid://mushroom_cloud"]
+
+[sub_resource type="Curve" id="Curve_mushroom"]
+_data = [Vector2(0, 0.5), 0.0, 2.0, 0, 0, Vector2(0.3, 2), 0.0, 0.0, 0, 0, Vector2(0.7, 1.5), 0.0, -1.0, 0, 0, Vector2(1, 0.3), -1.0, 0.0, 0, 0]
+max_value = 2.0
+
+[sub_resource type="Gradient" id="Gradient_smoke"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.2, 0.5, 0.8, 1)
+colors = PackedColorArray(0.7, 0.7, 0.7, 1, 0.5, 0.5, 0.5, 0.9, 0.4, 0.4, 0.4, 0.7, 0.3, 0.3, 0.3, 0.4, 0.2, 0.2, 0.2, 0.2)
+
+[sub_resource type="GPUParticlesMaterial" id="Material_mushroom"]
+emission_shape = 1
+emission_box_extents = Vector3(5, 2, 5)
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 15.0
+initial_velocity_max = 40.0
+angular_velocity_min = -10.0
+angular_velocity_max = 10.0
+gravity = Vector3(0, 3, 0)
+scale_min = 8.0
+scale_max = 25.0
+scale_curve = SubResource("Curve_mushroom")
+color_ramp = SubResource("Gradient_smoke")
+anim_speed_min = 0.2
+anim_speed_max = 0.6
+
+[sub_resource type="GPUParticlesMaterial" id="Material_stem"]
+emission_shape = 1
+emission_box_extents = Vector3(2, 1, 2)
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 5, 0)
+scale_min = 3.0
+scale_max = 8.0
+scale_curve = SubResource("Curve_mushroom")
+color_ramp = SubResource("Gradient_smoke")
+anim_speed_min = 0.3
+anim_speed_max = 0.8
+
+[node name="MushroomCloud" type="Node3D"]
+
+[node name="Stem" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+amount = 30
+lifetime = 6.0
+one_shot = true
+explosiveness = 0.5
+randomness = 0.5
+process_material = SubResource("Material_stem")
+
+[node name="Cap" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+emitting = false
+amount = 60
+lifetime = 8.0
+one_shot = true
+explosiveness = 0.3
+randomness = 0.6
+process_material = SubResource("Material_mushroom")
+
+[node name="Glow" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.6, 0.2, 1)
+light_energy = 0.0
+omni_range = 100.0
