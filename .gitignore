@@ -85,4 +85,5 @@ Thumbs.db
 *.steam_appid.txt
 
 # Project-specific
-reference/
+reference/norad-war-simulator.pck
+export/
