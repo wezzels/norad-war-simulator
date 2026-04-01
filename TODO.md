@@ -9,44 +9,59 @@
 - Phase 5: Polish ✅ 100%
 - Phase 6: Multiplayer ✅ 95% (scripts compile, needs testing)
 - Phase 7: Steam ✅ 100%
-- Phase 8: Launch 🔄 50% (scripts fixed, export needs templates)
+- Phase 8: Launch 🔄 80% (build working, screenshots pending)
 
 ---
 
 ## Build Status (April 1, 2026)
 
-### Scripts ✅ COMPILE
-All GDScript files now compile without errors:
-- Fixed lobby_menu.gd scene reference
-- Fixed game_mode.gd enum → constants
-- Fixed network_manager.gd enum → int
-- Fixed defense_manager.gd TYPE_STATS access
-- Fixed interceptor.gd Line3D → MeshInstance3D
-- Fixed achievements_screen.gd TextureRect enum
-- Fixed steam_manager.gd class_name removal
-- Fixed main.gd preload → dynamic load
+### ✅ BUILD SUCCESSFUL
 
-### Audio Issues ⚠️ NEEDS FIX
-WAV files need conversion to PCM format. Run:
-```bash
-cd ~/stsgym-work/norad-war-simulator
-for f in audio/sfx/*.wav; do
-  name=$(basename "$f")
-  sox "$f" -t wav -e signed-integer -b 16 "assets/audio/$name"
-done
-```
+**Linux Binary Built:**
+- `export/norad-war-simulator` - 68MB ELF 64-bit executable
+- `export/norad-war-simulator.pck` - 3.8MB game data
 
-### Export Templates ⚠️ NOT INSTALLED
-Godot snap doesn't include export templates. Need:
-```bash
-# Download templates from godotengine.org
-# Or use official flatpak version
-flatpak install flathub org.godotengine.Godot
-```
+**Export Templates Installed:**
+- Godot 4.6.1 stable export templates
+- Linux, Windows, macOS, Android, iOS, Web
+
+**Scripts Fixed:**
+All GDScript files compile without errors:
+- lobby_menu.gd scene reference
+- game_mode.gd enum → constants
+- network_manager.gd enum → int
+- defense_manager.gd TYPE_STATS access
+- interceptor.gd Line3D → MeshInstance3D
+- achievements_screen.gd TextureRect enum
+- steam_manager.gd class_name removal
+- main.gd preload → dynamic load
+
+### Remaining for Release
+
+1. **Screenshots** - Need to run game and capture 10 screenshots
+2. **Trailer** - Create 60-second gameplay video
+3. **Windows Build** - Run build.sh for Windows
+4. **macOS Build** - Run build.sh for macOS
+5. **GitHub Release** - Create v0.5.0-alpha release with binaries
 
 ---
 
-## Phase 8: Launch Status
+## Build Commands
+
+```bash
+cd ~/stsgym-work/norad-war-simulator
+
+# Linux (already done)
+snap run godot-4 --headless --export-release "Linux/X11" export/norad-war-simulator
+
+# Windows (needs build)
+snap run godot-4 --headless --export-release "Windows Desktop" export/norad-war-simulator.exe
+
+# macOS (needs build)
+snap run godot-4 --headless --export-release "macOS" export/norad-war-simulator.dmg
+```
+
+---
 
 ### Build Scripts ✅ DONE
 - [x] build.sh for cross-platform builds
