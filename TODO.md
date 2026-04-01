@@ -205,10 +205,16 @@ cd ~/stsgym-work/norad-war-simulator
 - [x] Release notes with features and installation
 - [x] Draft release on GitHub (pending binaries)
 
-### Screenshots & Media 🔄 TODO
-- [ ] Screenshots (10 needed)
-- [ ] Trailer video
-- [ ] Logo and banner images
+### Media Assets 🔄 IN PROGRESS
+- [x] Media asset requirements documented (docs/MEDIA_ASSETS.md)
+- [x] Screenshot guidelines (docs/SCREENSHOTS.md)
+- [x] Logo SVG created (assets/logo.svg)
+- [x] Header capsule SVG (assets/store/header_capsule.svg)
+- [x] Main capsule SVG (assets/store/main_capsule.svg)
+- [x] Small capsule SVG (assets/store/small_capsule.svg)
+- [ ] Convert SVGs to PNGs (requires ImageMagick or Inkscape)
+- [ ] Capture 10 in-game screenshots (requires Godot)
+- [ ] Create 60-second trailer video
 
 ---
 
