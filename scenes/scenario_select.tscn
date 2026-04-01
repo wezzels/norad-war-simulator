@@ -1,0 +1,110 @@
+; SCENE: Scenario Selection
+; Screen for selecting scenarios
+
+[gd_scene load_steps=2 format=3 uid="uid://scenario_select"]
+
+[ext_resource type="Script" path="res://scripts/ui/scenario_select.gd" id="1_select"]
+
+[node name="ScenarioSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_select")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.1, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 30.0
+offset_right = 200.0
+offset_bottom = 80.0
+text = "SELECT SCENARIO"
+horizontal_alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 100.0
+offset_right = -50.0
+offset_bottom = -50.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScenarioList" type="VBoxContainer" parent="Panel/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DescriptionPanel" type="Panel" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/DescriptionPanel"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/HBoxContainer/DescriptionPanel/VBoxContainer"]
+layout_mode = 2
+text = "MISSION BRIEFING"
+horizontal_alignment = 1
+
+[node name="DifficultyLabel" type="Label" parent="Panel/HBoxContainer/DescriptionPanel/VBoxContainer"]
+layout_mode = 2
+text = "Difficulty: -"
+
+[node name="HSeparator" type="HSeparator" parent="Panel/HBoxContainer/DescriptionPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="Panel/HBoxContainer/DescriptionPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+autowrap_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -60.0
+offset_right = 300.0
+offset_bottom = -20.0
+
+[node name="BackButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BACK"
+
+[node name="NewButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "NEW SCENARIO"
+
+[node name="StartButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "START MISSION"

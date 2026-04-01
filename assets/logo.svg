@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#0a0a14"/>
+  
+  <!-- Globe -->
+  <circle cx="256" cy="256" r="200" fill="#1a2a3a" stroke="#3a6a8a" stroke-width="8"/>
+  
+  <!-- Continents (simplified) -->
+  <ellipse cx="200" cy="180" rx="60" ry="40" fill="#2a4a3a" opacity="0.7"/>
+  <ellipse cx="320" cy="200" rx="50" ry="60" fill="#2a4a3a" opacity="0.7"/>
+  <ellipse cx="280" cy="320" rx="40" ry="50" fill="#2a4a3a" opacity="0.7"/>
+  
+  <!-- Grid lines -->
+  <ellipse cx="256" cy="256" rx="200" ry="200" fill="none" stroke="#3a5a7a" stroke-width="1" opacity="0.5"/>
+  <line x1="56" y1="256" x2="456" y2="256" stroke="#3a5a7a" stroke-width="1" opacity="0.5"/>
+  <line x1="256" y1="56" x2="256" y2="456" stroke="#3a5a7a" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Missile trajectory -->
+  <path d="M120 380 Q180 200 380 180" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+  
+  <!-- Interceptor trajectory -->
+  <path d="M300 300 Q220 220 140 200" fill="none" stroke="#4ecdc4" stroke-width="3"/>
+  
+  <!-- Launch point -->
+  <circle cx="120" cy="380" r="10" fill="#ff6b6b"/>
+  
+  <!-- Impact point -->
+  <circle cx="380" cy="180" r="8" fill="#ffd93d" stroke="#ff6b6b" stroke-width="2"/>
+  
+  <!-- DEFCON indicator -->
+  <rect x="400" y="420" width="80" height="24" rx="4" fill="#2a2a3a"/>
+  <rect x="400" y="420" width="80" height="24" rx="4" fill="none" stroke="#4a4a5a" stroke-width="2"/>
+  <text x="440" y="438" fill="#ff6b6b" font-family="monospace" font-size="14" text-anchor="middle">DEFCON 1</text>
+  
+  <!-- Title area -->
+  <text x="256" y="480" fill="#ffffff" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle">NORAD</text>
+</svg>

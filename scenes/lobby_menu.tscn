@@ -1,0 +1,150 @@
+; SCENE: Lobby Menu
+; Multiplayer lobby for player management and chat
+
+[gd_scene load_steps=3 format=3 uid="uid://lobby_menu"]
+
+[ext_resource type="Script" path="res://scripts/ui/lobby_menu.gd" id="1_lobby"]
+[ext_resource type="Script" path="res://scripts/ui/button_animations.gd" id="2_anim"]
+
+[node name="LobbyMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = preload("res://themes/game_theme.tres")
+script = ExtResource("1_lobby")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.02, 0.04, 1.0)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.75, 0.4, 1.0)
+theme_override_font_sizes/font_size = 24
+text = "GAME LOBBY"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.55, 0.6, 1.0)
+text = "Waiting for players..."
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 8)
+
+[node name="Players" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Players"]
+layout_mode = 2
+text = "Players:"
+
+[node name="PlayerList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Players"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Settings" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GameMode" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Settings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Settings/GameMode"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 0)
+text = "Mode:"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/Settings/GameMode"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Team" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Settings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Settings/Team"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 0)
+text = "Team:"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/Settings/Team"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReadyCheck" type="CheckBox" parent="PanelContainer/VBoxContainer/Settings"]
+layout_mode = 2
+text = "Ready"
+disabled = true
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 8)
+
+[node name="Chat" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Chat"]
+layout_mode = 2
+text = "Chat:"
+
+[node name="Messages" type="RichTextLabel" parent="PanelContainer/VBoxContainer/Chat"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = ""
+scroll_following = true
+
+[node name="Input" type="LineEdit" parent="PanelContainer/VBoxContainer/Chat"]
+layout_mode = 2
+placeholder_text = "Type message and press Enter..."
+
+[node name="HSeparator3" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 8)
+
+[node name="ButtonContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="StartButton" type="Button" parent="PanelContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "START GAME"
+
+[node name="ReadyButton" type="Button" parent="PanelContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "READY"
+
+[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "LEAVE"

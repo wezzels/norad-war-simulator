@@ -1,0 +1,38 @@
+; SCENE: Improved Missile
+; Visual representation with contrail effect
+
+[gd_scene load_steps=5 format=3 uid="uid://missile_improved"]
+
+[ext_resource type="Script" path="res://scripts/simulation/missile_visual.gd" id="1_missile"]
+[ext_resource type="PackedScene" uid="uid://contrail_effect" path="res://scenes/effects/contrail_effect.tscn" id="2_contrail"]
+[ext_resource type="PackedScene" uid="uid://impact_effect" path="res://scenes/effects/impact_effect.tscn" id="3_impact"]
+
+[sub_resource type="StandardMaterial3D" id="Material_missile"]
+albedo_color = Color(1, 0.3, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0, 1)
+emission_energy = 2.0
+roughness = 0.3
+metallic = 0.5
+
+[node name="Missile" type="Node3D"]
+script = ExtResource("1_missile")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = CylinderMesh.new()
+mesh.top_radius = 0.0
+mesh.bottom_radius = 0.5
+mesh.height = 3.0
+surface_material_override/0 = SubResource("Material_missile")
+
+[node name="Glow" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.3, 0, 1)
+light_energy = 2.0
+omni_range = 10.0
+
+[node name="Contrail" parent="." instance=ExtResource("2_contrail")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="ImpactEffect" parent="." instance=ExtResource("3_impact")]
+visible = false

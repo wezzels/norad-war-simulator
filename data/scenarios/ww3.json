@@ -1,0 +1,30 @@
+{
+  "id": "scenario_08",
+  "name": "World War III",
+  "description": "Full-scale global conflict. 500+ missiles from all sites.",
+  "difficulty": 4,
+  "time_limit": 1800,
+  "launch_sites": [
+    {"name": "Site Alpha", "missiles": 100},
+    {"name": "Site Beta", "missiles": 100},
+    {"name": "Site Gamma", "missiles": 150},
+    {"name": "Site Delta", "missiles": 100},
+    {"name": "Site Epsilon", "missiles": 50}
+  ],
+  "missile_waves": [
+    {"time": 0, "missiles_count": 50, "targets": "random"},
+    {"time": 120, "missiles_count": 100, "targets": "random"},
+    {"time": 300, "missiles_count": 150, "targets": "random"},
+    {"time": 600, "missiles_count": 100, "targets": "random"},
+    {"time": 900, "missiles_count": 100, "targets": "random"}
+  ],
+  "interceptors": {
+    "GBI": 44,
+    "THAAD": 100,
+    "Patriot": 200
+  },
+  "victory_conditions": {
+    "cities_saved_min": 10,
+    "time_limit_seconds": 1800
+  }
+}

@@ -1,0 +1,200 @@
+; SCENE: Main Game
+; Primary gameplay scene with globe and HUD
+
+[gd_scene load_steps=6 format=3 uid="uid://game_scene"]
+
+[ext_resource type="Script" path="res://scripts/simulation/game_controller.gd" id="1_game"]
+[ext_resource type="Script" path="res://scripts/globe/globe_renderer.gd" id="2_globe"]
+[ext_resource type="Script" path="res://scripts/globe/camera_controller.gd" id="3_camera"]
+[ext_resource type="Script" path="res://scripts/ui/hud_controller.gd" id="4_hud"]
+[ext_resource type="Texture2D" path="res://assets/textures/earth/earth_day.jpg" id="5_earth"]
+
+[sub_resource type="StandardMaterial3D" id="Material_earth"]
+albedo_texture = ExtResource("5_earth")
+roughness = 0.8
+
+[sub_resource type="SphereMesh" id="SphereMesh_earth"]
+radial_segments = 64
+rings = 32
+radius = 100.0
+height = 200.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_atmosphere"]
+radial_segments = 32
+rings = 16
+radius = 102.0
+height = 204.0
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_game")
+
+[node name="Camera" type="Camera3D" parent="."]
+script = ExtResource("3_camera")
+orbit_distance = 300.0
+min_distance = 120.0
+max_distance = 600.0
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866, 0.5, 0, -0.5, 0.866, 100, 100, 100)
+light_color = Color(1, 0.95, 0.9, 1)
+light_energy = 1.2
+
+[node name="Ambient" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, -50, -50)
+light_color = Color(0.2, 0.3, 0.5, 1)
+light_energy = 0.3
+
+[node name="Globe" type="Node3D" parent="."]
+script = ExtResource("2_globe")
+
+[node name="EarthMesh" type="MeshInstance3D" parent="Globe"]
+mesh = SubResource("SphereMesh_earth")
+surface_material_override/0 = SubResource("Material_earth")
+
+[node name="Atmosphere" type="MeshInstance3D" parent="Globe"]
+mesh = SubResource("SphereMesh_atmosphere")
+
+[node name="Clouds" type="MeshInstance3D" parent="Globe"]
+
+[node name="MissileContainer" type="Node3D" parent="."]
+
+[node name="InterceptorContainer" type="Node3D" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("4_hud")
+
+[node name="DefconPanel" type="Panel" parent="HUD"]
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 100.0
+
+[node name="DefconLabel" type="Label" parent="HUD/DefconPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "DEFCON 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpeedPanel" type="Panel" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 100.0
+
+[node name="SpeedLabel" type="Label" parent="HUD/SpeedPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Speed: 1.0x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsPanel" type="Panel" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -200.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="StatsLabel" type="Label" parent="HUD/StatsPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AlertPanel" type="Panel" parent="HUD"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 120.0
+offset_right = 400.0
+offset_bottom = -80.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HUD/AlertPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+
+[node name="AlertContainer" type="VBoxContainer" parent="HUD/AlertPanel/ScrollContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ControlPanel" type="Panel" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -60.0
+offset_right = 300.0
+offset_bottom = -10.0
+
+[node name="PauseButton" type="Button" parent="HUD/ControlPanel"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 100.0
+offset_bottom = -10.0
+text = "Pause"
+
+[node name="SpeedLabel2" type="Label" parent="HUD/ControlPanel"]
+anchors_preset = 6
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+offset_bottom = -20.0
+text = "Speed"
+horizontal_alignment = 1
+
+[node name="SpeedSlider" type="HSlider" parent="HUD/ControlPanel"]
+anchors_preset = 6
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -40.0
+offset_right = 100.0
+offset_bottom = -20.0
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.0
+
+[node name="HelpLabel" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "Mouse: Drag orbit | Scroll: Zoom | Space: Test missile | 1-9: Speed"
+horizontal_alignment = 1

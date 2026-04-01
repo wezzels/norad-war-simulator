@@ -1,0 +1,37 @@
+; SCENE: Contrail Effect
+; Missile trail with gradient and particle effects
+
+[gd_scene load_steps=4 format=3 uid="uid://contrail_effect"]
+
+[sub_resource type="Curve" id="Curve_alpha"]
+_data = [Vector2(0, 1), 0.0, -2.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
+max_value = 1.0
+
+[sub_resource type="Gradient" id="Gradient_contrail"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(1, 0.5, 0.1, 1, 1, 0.4, 0.05, 0.8, 0.8, 0.2, 0, 0.5, 0.4, 0.1, 0, 0.2)
+
+[sub_resource type="GPUParticlesMaterial" id="Material_contrail"]
+emission_shape = 0
+emission_sphere_radius = 0.5
+direction = Vector3(-1, 0, 0)
+spread = 10.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0.1, 0)
+scale_min = 0.5
+scale_max = 2.0
+scale_curve = SubResource("Curve_alpha")
+color_ramp = SubResource("Gradient_contrail")
+damping_min = 0.8
+damping_max = 1.0
+
+[node name="ContrailEffect" type="GPUParticles3D"]
+emitting = false
+amount = 50
+lifetime = 2.0
+explosiveness = 0.0
+randomness = 0.3
+process_material = SubResource("Material_contrail")
+local_coords = false

@@ -1,0 +1,34 @@
+{
+  "id": "scenario_05",
+  "name": "Korean Standoff",
+  "description": "North Korea launches a limited strike.",
+  "difficulty": 2,
+  "time_limit": null,
+  "launch_sites": [
+    {"name": "Site Alpha", "missiles": 8}
+  ],
+  "missile_waves": [
+    {
+      "time": 0,
+      "missiles": [
+        {"origin": "Site Alpha", "target": "Seoul", "type": "IRBM"},
+        {"origin": "Site Alpha", "target": "Tokyo", "type": "IRBM"},
+        {"origin": "Site Alpha", "target": "Washington DC", "type": "ICBM"},
+        {"origin": "Site Alpha", "target": "Los Angeles", "type": "ICBM"},
+        {"origin": "Site Alpha", "target": "San Francisco", "type": "ICBM"},
+        {"origin": "Site Alpha", "target": "Seattle", "type": "ICBM"},
+        {"origin": "Site Alpha", "target": "Denver", "type": "ICBM"},
+        {"origin": "Site Alpha", "target": "Boston", "type": "ICBM"}
+      ]
+    }
+  ],
+  "interceptors": {
+    "GBI": 25,
+    "THAAD": 40,
+    "Patriot": 80
+  },
+  "victory_conditions": {
+    "cities_saved_min": 18,
+    "time_limit_seconds": null
+  }
+}

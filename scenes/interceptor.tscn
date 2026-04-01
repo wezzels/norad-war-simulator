@@ -1,0 +1,31 @@
+; SCENE: Interceptor
+; Visual representation of defense interceptor
+
+[gd_scene load_steps=3 format=3 uid="uid://interceptor_scene"]
+
+[ext_resource type="Script" path="res://scripts/simulation/interceptor.gd" id="1_interceptor"]
+
+[sub_resource type="StandardMaterial3D" id="Material_interceptor"]
+albedo_color = Color(0.2, 0.6, 1, 1)
+emission_enabled = true
+emission = Color(0.1, 0.3, 0.5, 1)
+emission_energy = 1.5
+
+[node name="Interceptor" type="Node3D"]
+script = ExtResource("1_interceptor")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = CylinderMesh.new()
+mesh.top_radius = 0.0
+mesh.bottom_radius = 0.3
+mesh.height = 2.0
+surface_material_override/0 = SubResource("Material_interceptor")
+
+[node name="Trail" type="Line3D" parent="."]
+width = 1.5
+default_color = Color(0.2, 0.6, 1, 0.6)
+
+[node name="Glow" type="OmniLight3D" parent="."]
+light_color = Color(0.2, 0.6, 1, 1)
+light_energy = 1.5
+omni_range = 8.0
