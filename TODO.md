@@ -9,7 +9,19 @@
 - Phase 5: Polish ✅ 100%
 - Phase 6: Multiplayer ✅ 95% (scripts compile, needs testing)
 - Phase 7: Steam ✅ 100%
-- Phase 8: Launch 🔄 85% (binaries built, screenshots pending)
+- Phase 8: Launch ✅ 90% (RELEASED on GitHub!)
+
+---
+
+## 🎉 RELEASE PUBLISHED
+
+**GitHub Release:** https://github.com/wezzels/norad-war-simulator/releases/tag/v0.5.0-alpha
+
+| Platform | File | Size | Status |
+|----------|------|------|--------|
+| **Linux x86_64** | norad-war-simulator-linux-x86_64 | 68MB | ✅ Uploaded |
+| **Windows x86_64** | norad-war-simulator-windows-x86_64.exe | 100MB | ✅ Uploaded |
+| **macOS** | — | — | ⏳ Needs template |
 
 ---
 
@@ -35,27 +47,19 @@
 
 Templates at: `~/snap/godot-4/21/.local/share/godot/export_templates/4.6.1.stable.mono/`
 
-Available platforms:
-- Linux (x86_64, arm64, x86_32) ✅
-- Windows (x86_64, x86_32, arm64) ✅
-- macOS (universal zip) - needs extraction
-- Android (apk) ✅
-- iOS (zip) ✅
-- Web (wasm) ✅
-
 ---
 
-## Remaining for Release
+## Remaining for Full Launch
 
 ### High Priority
 1. **Screenshots** - Need display to run game visually
 2. **Trailer** - 60-second gameplay video
-3. **GitHub Release** - Create v0.5.0-alpha with binaries
+3. **macOS Build** - Extract templates and build
 
 ### Medium Priority
-4. **macOS Build** - Extract templates and build
-5. **Steam Submission** - When assets ready
-6. **Testing** - Multiplayer needs network testing
+4. **Steam Submission** - When assets ready
+5. **Testing** - Multiplayer needs network testing
+6. **Marketing** - Press kit, social media
 
 ### Low Priority
 7. **Web Build** - Not configured
@@ -63,25 +67,7 @@ Available platforms:
 
 ---
 
-## Build Commands
-
-```bash
-cd ~/stsgym-work/norad-war-simulator
-
-# Linux (already done)
-snap run godot-4 --headless --export-release "Linux/X11" export/norad-war-simulator
-
-# Windows (already done)
-snap run godot-4 --headless --export-release "Windows Desktop" export/norad-war-simulator.exe
-
-# macOS (needs template extraction first)
-unzip ~/snap/godot-4/common/.local/share/godot/export_templates/4.6.1.stable.mono/macos.zip -d /tmp/macos
-snap run godot-4 --headless --export-release "macOS" export/norad-war-simulator.zip
-```
-
----
-
-*Last updated: April 1, 2026 18:15 UTC*
+*Last updated: April 1, 2026 18:10 UTC*
 
 ### Build Scripts ✅ DONE
 - [x] build.sh for cross-platform builds
