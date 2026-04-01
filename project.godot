@@ -95,6 +95,6 @@ intercept={
 3d_physics/layer_4="cities"
 3d_physics/layer_5="launch_sites"
 
-[rendering]
+rendering/textures/vram_compression/import_etc2_astc=true
 
 textures/canvas_textures/default_texture_filter=0
