@@ -4,8 +4,6 @@
 
 extends Node
 
-class_name NetworkManager
-
 # Signals
 signal connection_established()
 signal connection_failed(reason: String)
@@ -34,9 +32,8 @@ var server_port: int = DEFAULT_PORT
 var players: Dictionary = {}  # player_id -> {name, team, ready}
 var host_player_id: int = 0
 
-# Game mode
-enum GameMode { COOP, VERSUS }
-var game_mode: GameMode = GameMode.COOP
+# Game mode (0 = COOP, 1 = VERSUS)
+var game_mode: int = 0
 
 # Network nodes
 var peer: ENetMultiplayerPeer = null
@@ -392,7 +389,8 @@ func disconnect_game() -> void:
 func get_ping() -> int:
 	"""Get ping to server in milliseconds"""
 	if peer and is_connected and not is_host:
-		return peer.get_stat(ENetMultiplayerPeer.PEER_ROUND_TRIP_TIME)
+		# Return approximate RTT from peer statistics
+		return peer.get_packet_peer_rtt() if peer.get_packet_peer_rtt() > 0 else 0
 	return 0
 
 

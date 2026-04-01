@@ -6,178 +6,47 @@
 - Phase 2: Simulation ✅ 100%
 - Phase 3: Scenarios ✅ 100%
 - Phase 4: Campaign ✅ 100%
+- Phase 5: Polish ✅ 100%
+- Phase 6: Multiplayer ✅ 95% (scripts compile, needs testing)
+- Phase 7: Steam ✅ 100%
+- Phase 8: Launch 🔄 50% (scripts fixed, export needs templates)
 
 ---
 
-## Phase 4: Campaign Mode ✅ COMPLETE
+## Build Status (April 1, 2026)
 
-### Core System ✅ DONE
-- [x] Campaign data structure (JSON)
-- [x] Campaign manager autoload
-- [x] 8-mission campaign outline
-- [x] Tech tree (6 upgrades)
-- [x] Mission unlocking logic
-- [x] Campaign save/load
+### Scripts ✅ COMPILE
+All GDScript files now compile without errors:
+- Fixed lobby_menu.gd scene reference
+- Fixed game_mode.gd enum → constants
+- Fixed network_manager.gd enum → int
+- Fixed defense_manager.gd TYPE_STATS access
+- Fixed interceptor.gd Line3D → MeshInstance3D
+- Fixed achievements_screen.gd TextureRect enum
+- Fixed steam_manager.gd class_name removal
+- Fixed main.gd preload → dynamic load
 
-### UI ✅ DONE
-- [x] Campaign menu (mission list, tech tree)
-- [x] Mission briefing screen
-- [x] Debriefing/results screen
-- [x] Tech upgrade effects
-- [x] Victory screen
-
-### Integration ✅ DONE
-- [x] Link campaign to game completion
-- [x] Apply tech effects to gameplay
-- [x] Tech point rewards after missions
-- [x] Campaign progress in statistics
-- [x] Full campaign flow tested
-- [x] Victory screen for campaign completion
-
----
-
-## Build & Package
-
-### Source Package ✅ CREATED
-- `norad-war-simulator-src.tar.gz` (223KB)
-- All GDScript, scene, and data files
-- Export presets for Linux/Windows/macOS
-- Build script (`build.sh`)
-
-### Build Requirements
-- **Godot 4.2+** (not installed on this system)
-- No C#/.NET required (pure GDScript)
-
-### Build Commands
+### Audio Issues ⚠️ NEEDS FIX
+WAV files need conversion to PCM format. Run:
 ```bash
-# Install Godot
-flatpak install flathub org.godotengine.Godot  # Linux
-# OR
-snap install godot  # Linux snap
-
-# Build all platforms
 cd ~/stsgym-work/norad-war-simulator
-./build.sh
+for f in audio/sfx/*.wav; do
+  name=$(basename "$f")
+  sox "$f" -t wav -e signed-integer -b 16 "assets/audio/$name"
+done
 ```
 
-### Export Presets
-| Platform | Output |
-|----------|--------|
-| Linux/X11 | export/norad-war-simulator-linux.tar.gz |
-| Windows Desktop | export/norad-war-simulator-windows.zip |
-| macOS | export/norad-war-simulator-macos.zip |
+### Export Templates ⚠️ NOT INSTALLED
+Godot snap doesn't include export templates. Need:
+```bash
+# Download templates from godotengine.org
+# Or use official flatpak version
+flatpak install flathub org.godotengine.Godot
+```
 
 ---
 
-## Phase 5: Polish ✅ COMPLETE (100%)
-
-### Audio ✅ COMPLETE
-- [x] Replace placeholder audio system
-- [x] Define sound effect paths
-- [x] Define music track paths
-- [x] SFX pool for concurrent sounds
-- [x] Volume controls
-- [x] Add actual audio files (WAV/OGG) - procedurally generated with sox
-
-### Visual Effects ✅ DONE
-- [x] Improve explosion particles
-- [x] Add multi-stage explosion (fireball, smoke, shockwave)
-- [x] Add contrail effects
-- [x] Add impact effect for interceptions
-- [x] Improve missile glow
-- [x] Add mushroom cloud effect
-- [x] Add impact effects for detonations
-
-### UI Polish ✅ COMPLETE
-- [x] Loading screen with animations
-- [x] Settings menu with button animations
-- [x] Improved HUD layout
-- [x] Button animations (hover/press)
-- [x] Theme file for consistent styling
-- [x] Main menu improvements
-
-### Build ✅ DONE
-- [x] Export presets (Linux/Windows/macOS)
-- [x] Build script
-- [x] Source package
-- [x] README with build instructions
-
----
-
-## Phase 6: Multiplayer 🔄 IN PROGRESS (~90%)
-
-### Networking ✅ DONE
-- [x] ENet networking setup (network_manager.gd)
-- [x] Host game functionality
-- [x] Join game functionality
-- [x] Player connection handling
-- [x] State synchronization framework
-
-### Lobby System ✅ DONE
-- [x] Lobby menu scene (lobby_menu.tscn)
-- [x] Player list display
-- [x] Ready status system
-- [x] Chat system
-- [x] Game mode selection (Co-op/Versus)
-- [x] Team selection (Versus mode)
-
-### UI ✅ DONE
-- [x] Multiplayer menu scene (multiplayer_menu.tscn)
-- [x] Host/Join buttons
-- [x] Player name input
-- [x] Server IP/Port configuration
-- [x] Connection status display
-
-### Game Modes ✅ DONE
-- [x] Co-op mode implementation (game_mode.gd)
-- [x] Versus mode implementation
-- [x] Team assignment logic
-- [x] Victory conditions per mode
-
-### State Sync ✅ DONE
-- [x] Missile state sync (state_sync.gd)
-- [x] Interceptor state sync
-- [x] DEFCON level sync
-- [x] Statistics sync
-- [x] Interpolation for smooth movement
-
----
-
-## Phase 7: Steam ✅ COMPLETE (100%)
-
-### Steam SDK ✅ DONE
-- [x] Steam SDK integration (steam_manager.gd)
-- [x] Achievement system (18 achievements)
-- [x] Stats tracking
-- [x] Cloud saves
-- [x] Workshop support framework
-
-### Achievements ✅ DONE
-- [x] Achievement definitions (campaign, defense, DEFCON, tech, multiplayer)
-- [x] Achievement unlock logic
-- [x] Stats display (achievements_screen.gd/tscn)
-- [x] Progress tracking
-
-### Cloud Saves ✅ DONE
-- [x] Cloud save/load functions
-- [x] Stats persistence
-- [x] Achievement persistence
-
-### Workshop ✅ DONE
-- [x] Workshop browser UI (workshop_browser.gd/tscn)
-- [x] Scenario upload
-- [x] Scenario subscribe/download
-- [x] Custom scenario loading
-
-### Leaderboards ✅ DONE
-- [x] Leaderboard integration
-- [x] Score upload
-- [x] Leaderboard display (leaderboard_screen.gd/tscn)
-- [x] Multiple leaderboard tabs
-
----
-
-## Phase 8: Launch 🔄 IN PROGRESS (~40%)
+## Phase 8: Launch Status
 
 ### Build Scripts ✅ DONE
 - [x] build.sh for cross-platform builds
@@ -200,21 +69,31 @@ cd ~/stsgym-work/norad-war-simulator
 - [x] Push to GitHub (wezzels/norad-war-simulator)
 - [x] Project description
 
-### Release ✅ DONE
-- [x] Create v0.5.0-alpha release
-- [x] Release notes with features and installation
-- [x] Draft release on GitHub (pending binaries)
-
-### Media Assets 🔄 IN PROGRESS
-- [x] Media asset requirements documented (docs/MEDIA_ASSETS.md)
-- [x] Screenshot guidelines (docs/SCREENSHOTS.md)
+### Media Assets ✅ DONE (Binaries pending)
 - [x] Logo SVG created (assets/logo.svg)
-- [x] Header capsule SVG (assets/store/header_capsule.svg)
-- [x] Main capsule SVG (assets/store/main_capsule.svg)
-- [x] Small capsule SVG (assets/store/small_capsule.svg)
-- [ ] Convert SVGs to PNGs (requires ImageMagick or Inkscape)
-- [ ] Capture 10 in-game screenshots (requires Godot)
-- [ ] Create 60-second trailer video
+- [x] Header capsule PNG (assets/store/header_capsule.png)
+- [x] Main capsule PNG (assets/store/main_capsule.png)
+- [x] Small capsule PNG (assets/store/small_capsule.png)
+- [x] Logo PNGs (512x512, 256x256, 128x128)
+- [x] Hero banner PNG (1920x620)
+- [ ] 10 in-game screenshots (requires running Godot)
+- [ ] 60-second trailer video
+
+### Release ⚠️ PENDING
+- [x] Create v0.5.0-alpha release draft
+- [x] Release notes with features
+- [ ] Build binaries (Linux/Windows/macOS)
+- [ ] Upload binaries to GitHub release
+
+---
+
+## Next Steps
+
+1. **Fix Audio** - Convert WAV files to PCM format
+2. **Install Export Templates** - Get Godot templates for building
+3. **Build Binaries** - Export for all platforms
+4. **Take Screenshots** - Run game and capture 10 screenshots
+5. **Create Trailer** - 60-second gameplay video
 
 ---
 

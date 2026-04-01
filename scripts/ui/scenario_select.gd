@@ -1,5 +1,9 @@
 extends Control
 
+# Signals
+signal back_pressed()
+signal scenario_selected(scenario_id: String)
+
 # Nodes
 @onready var scenario_list: VBoxContainer = $Panel/ScrollContainer/ScenarioList
 @onready var back_button: Button = $Panel/BackButton

@@ -4,8 +4,6 @@
 
 extends Node
 
-class_name SteamManager
-
 # Signals
 signal steam_ready()
 signal steam_error(error: String)

@@ -212,7 +212,7 @@ func _on_game_mode_selected(index: int) -> void:
 		return
 	
 	AudioManager.play_click()
-	NetworkManager.game_mode = NetworkManager.GameMode.COOP if index == 0 else NetworkManager.GameMode.VERSUS
+	NetworkManager.game_mode = 0 if index == 0 else 1  # 0 = COOP, 1 = VERSUS
 	# Sync game mode to clients
 	# rpc("set_game_mode", index)
 

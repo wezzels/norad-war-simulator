@@ -4,26 +4,25 @@
 
 extends Node
 
-class_name GameMode
-
 # Signals
-signal mode_changed(mode: GameModeType)
+signal mode_changed(mode: int)
 signal team_scored(team: int, points: int)
 signal game_over(winner: int, reason: String)
 
-# Enums
-enum GameModeType { COOP, VERSUS }
-enum VictoryCondition { 
-	ALL_THREATS_NEUTRALIZED,  # Co-op: Stop all missiles
-	SURVIVAL_TIME,            # Co-op: Survive for X minutes
-	OPPONENT_ELIMINATED,       # Versus: Destroy opponent's cities
-	POINT_LIMIT,               # Versus: First to X points
-	TIME_LIMIT                  # Versus: Most points when time runs out
-}
+# Mode constants
+const COOP: int = 0
+const VERSUS: int = 1
+
+# Victory conditions
+const ALL_THREATS_NEUTRALIZED: int = 0  # Co-op: Stop all missiles
+const SURVIVAL_TIME: int = 1            # Co-op: Survive for X minutes
+const OPPONENT_ELIMINATED: int = 2       # Versus: Destroy opponent's cities
+const POINT_LIMIT: int = 3               # Versus: First to X points
+const TIME_LIMIT: int = 4                # Versus: Most points when time runs out
 
 # Current mode
-var current_mode: GameModeType = GameModeType.COOP
-var current_victory: VictoryCondition = VictoryCondition.ALL_THREATS_NEUTRALIZED
+var current_mode: int = COOP
+var current_victory: int = ALL_THREATS_NEUTRALIZED
 
 # Teams (Versus mode)
 var team_scores: Dictionary = {1: 0, 2: 0}
@@ -67,8 +66,8 @@ func _process(delta: float) -> void:
 
 func setup_coop(settings: Dictionary = {}) -> void:
 	"""Setup cooperative mode"""
-	current_mode = GameModeType.COOP
-	current_victory = settings.get("victory", VictoryCondition.ALL_THREATS_NEUTRALIZED)
+	current_mode = COOP
+	current_victory = settings.get("victory", ALL_THREATS_NEUTRALIZED)
 	
 	# Apply settings
 	coop_missile_multiplier = settings.get("missile_multiplier", 1.0)
@@ -86,8 +85,8 @@ func setup_coop(settings: Dictionary = {}) -> void:
 
 func setup_versus(settings: Dictionary = {}) -> void:
 	"""Setup versus mode"""
-	current_mode = GameModeType.VERSUS
-	current_victory = settings.get("victory", VictoryCondition.POINT_LIMIT)
+	current_mode = VERSUS
+	current_victory = settings.get("victory", POINT_LIMIT)
 	
 	# Apply settings
 	time_limit = settings.get("time_limit", 0.0) * 60.0  # Convert to seconds
@@ -191,7 +190,7 @@ func _setup_team_interceptors() -> void:
 
 func award_points(team: int, points: int, reason: String) -> void:
 	"""Award points to a team"""
-	if current_mode == GameModeType.COOP:
+	if current_mode == COOP:
 		# In co-op, everyone gets points
 		team_scores[1] += points
 		team_scored.emit(1, points)
@@ -206,33 +205,31 @@ func award_points(team: int, points: int, reason: String) -> void:
 
 func on_missile_intercepted(interceptor_team: int = 1) -> void:
 	"""Handle successful interception"""
-	match current_mode:
-		GameModeType.COOP:
-			award_points(1, 10, "Missile intercepted")
-		GameModeType.VERSUS:
-			award_points(interceptor_team, 10, "Missile intercepted")
+	if current_mode == COOP:
+		award_points(1, 10, "Missile intercepted")
+	else:
+		award_points(interceptor_team, 10, "Missile intercepted")
 
 
 func on_city_hit(city_name: String, attacking_team: int = 0) -> void:
 	"""Handle city being hit"""
-	match current_mode:
-		GameModeType.COOP:
-			# Deduct points in co-op
-			award_points(1, -50, "City hit: %s" % city_name)
-		GameModeType.VERSUS:
-			# Find which team owned the city
-			for team: int in team_cities:
-				for city: Dictionary in team_cities[team]:
-					if city.name == city_name:
-						# Attacking team gets points, defending team loses
-						award_points(attacking_team, 25, "City hit: %s" % city_name)
-						award_points(team, -15, "City lost: %s" % city_name)
-						return
+	if current_mode == COOP:
+		# Deduct points in co-op
+		award_points(1, -50, "City hit: %s" % city_name)
+	else:
+		# Find which team owned the city
+		for team: int in team_cities:
+			for city: Dictionary in team_cities[team]:
+				if city.name == city_name:
+					# Attacking team gets points, defending team loses
+					award_points(attacking_team, 25, "City hit: %s" % city_name)
+					award_points(team, -15, "City lost: %s" % city_name)
+					return
 
 
 func on_missile_launch(launching_team: int = 0) -> void:
 	"""Handle missile launch (versus mode)"""
-	if current_mode == GameModeType.VERSUS:
+	if current_mode == VERSUS:
 		# Track who launched
 		pass  # Just tracking, no points for launching
 
@@ -242,13 +239,13 @@ func on_missile_launch(launching_team: int = 0) -> void:
 func _check_victory_conditions() -> void:
 	"""Check if victory conditions are met"""
 	match current_victory:
-		VictoryCondition.ALL_THREATS_NEUTRALIZED:
+		ALL_THREATS_NEUTRALIZED:
 			_check_all_threats_neutralized()
-		VictoryCondition.SURVIVAL_TIME:
+		SURVIVAL_TIME:
 			_check_survival_time()
-		VictoryCondition.TIME_LIMIT:
+		TIME_LIMIT:
 			_check_time_limit()
-		VictoryCondition.POINT_LIMIT:
+		POINT_LIMIT:
 			# Handled in award_points
 			pass
 
@@ -308,7 +305,7 @@ func get_team_for_player(player_id: int) -> int:
 
 func get_interceptors_for_team(team: int) -> Dictionary:
 	"""Get available interceptors for a team"""
-	if current_mode == GameModeType.COOP:
+	if current_mode == COOP:
 		return DefenseManager.inventory
 	else:
 		return team_interceptors.get(team, {})
@@ -351,18 +348,20 @@ func _load_cities() -> Array:
 
 func get_mode_name() -> String:
 	"""Get name of current mode"""
-	match current_mode:
-		GameModeType.COOP: return "Co-op"
-		GameModeType.VERSUS: return "Versus"
-		_: return "Unknown"
+	if current_mode == COOP:
+		return "Co-op"
+	elif current_mode == VERSUS:
+		return "Versus"
+	else:
+		return "Unknown"
 
 
 func get_victory_name() -> String:
 	"""Get name of victory condition"""
 	match current_victory:
-		VictoryCondition.ALL_THREATS_NEUTRALIZED: return "All Threats Neutralized"
-		VictoryCondition.SURVIVAL_TIME: return "Survival"
-		VictoryCondition.OPPONENT_ELIMINATED: return "Opponent Eliminated"
-		VictoryCondition.POINT_LIMIT: return "Point Limit"
-		VictoryCondition.TIME_LIMIT: return "Time Limit"
+		ALL_THREATS_NEUTRALIZED: return "All Threats Neutralized"
+		SURVIVAL_TIME: return "Survival"
+		OPPONENT_ELIMINATED: return "Opponent Eliminated"
+		POINT_LIMIT: return "Point Limit"
+		TIME_LIMIT: return "Time Limit"
 		_: return "Unknown"

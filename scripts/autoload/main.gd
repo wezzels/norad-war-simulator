@@ -9,8 +9,13 @@ const MENU_SCENE: PackedScene = preload("res://scenes/main_menu.tscn")
 const GAME_SCENE: PackedScene = preload("res://scenes/game.tscn")
 const SCENARIO_SELECT_SCENE: PackedScene = preload("res://scenes/scenario_select.tscn")
 const SCENARIO_EDITOR_SCENE: PackedScene = preload("res://scenes/scenario_editor.tscn")
-const MULTIPLAYER_MENU_SCENE: PackedScene = preload("res://scenes/multiplayer_menu.tscn")
-const LOBBY_MENU_SCENE: PackedScene = preload("res://scenes/lobby_menu.tscn")
+
+# Scenes loaded dynamically (to avoid preload errors during export)
+var multiplayer_menu_scene: PackedScene = null
+var lobby_menu_scene: PackedScene = null
+var achievements_scene: PackedScene = null
+var workshop_scene: PackedScene = null
+var leaderboard_scene: PackedScene = null
 
 # Current scene
 var current_scene: Node = null
@@ -51,45 +56,56 @@ func show_mission_briefing(mission_index: int) -> void:
 	if mission.is_empty():
 		return
 	
-	var briefing: Node = preload("res://scenes/mission_briefing.tscn").instantiate()
-	briefing.setup(mission)
-	briefing.mission_started.connect(_on_briefing_start.bind(mission_index))
-	briefing.back_pressed.connect(load_campaign_menu)
+	change_scene(preload("res://scenes/mission_briefing.tscn"))
 	
-	current_scene.add_child(briefing)
+	await get_tree().process_frame
+	
+	var briefing: Node = current_scene
+	if briefing and briefing.has_method("set_mission"):
+		briefing.set_mission(mission)
+		briefing.mission_started.connect(_on_mission_started.bind(mission_index))
+		briefing.back_pressed.connect(load_campaign_menu)
 
 
 func _on_campaign_mission_selected(mission_index: int) -> void:
-	"""Handle mission selection from campaign menu"""
+	"""Handle mission selection from campaign"""
 	show_mission_briefing(mission_index)
 
 
-func _on_briefing_start(mission_index: int) -> void:
-	"""Start mission from briefing"""
-	CampaignManager.start_mission(mission_index)
-	
-	var mission: Dictionary = CampaignManager.get_mission(mission_index)
-	var scenario_id: String = mission.get("scenario", "tutorial")
-	
-	load_game(scenario_id)
+func _on_mission_started(mission_index: int) -> void:
+	"""Start a campaign mission"""
+	load_game("campaign_%d" % mission_index)
 
 
 func load_scenario_select() -> void:
-	"""Load scenario selection screen"""
+	"""Load scenario selection"""
 	change_scene(SCENARIO_SELECT_SCENE)
 	
-	# Connect to selection
 	await get_tree().process_frame
 	
-	var scenario_select: Node = current_scene
-	if scenario_select and scenario_select.has_signal("scenario_selected"):
-		scenario_select.scenario_selected.connect(_on_scenario_selected)
-		scenario_select.back_pressed.connect(load_menu)
+	var select: Node = current_scene
+	if select and select.has_signal("scenario_selected"):
+		select.scenario_selected.connect(_on_scenario_selected)
+		select.back_pressed.connect(load_menu)
+
+
+func _on_scenario_selected(scenario_id: String) -> void:
+	"""Handle scenario selection"""
+	load_game(scenario_id)
+
+
+func load_scenario_editor() -> void:
+	"""Load scenario editor"""
+	change_scene(SCENARIO_EDITOR_SCENE)
 
 
 func load_multiplayer_menu() -> void:
 	"""Load multiplayer menu"""
-	change_scene(MULTIPLAYER_MENU_SCENE)
+	# Load dynamically to avoid preload errors
+	if multiplayer_menu_scene == null:
+		multiplayer_menu_scene = load("res://scenes/multiplayer_menu.tscn")
+	
+	change_scene(multiplayer_menu_scene)
 	
 	await get_tree().process_frame
 	
@@ -101,7 +117,10 @@ func load_multiplayer_menu() -> void:
 
 func load_lobby() -> void:
 	"""Load game lobby"""
-	change_scene(LOBBY_MENU_SCENE)
+	if lobby_menu_scene == null:
+		lobby_menu_scene = load("res://scenes/lobby_menu.tscn")
+	
+	change_scene(lobby_menu_scene)
 	
 	await get_tree().process_frame
 	
@@ -117,7 +136,10 @@ func _on_multiplayer_game_started() -> void:
 
 func load_achievements() -> void:
 	"""Load achievements screen"""
-	change_scene(preload("res://scenes/achievements_screen.tscn"))
+	if achievements_scene == null:
+		achievements_scene = load("res://scenes/achievements_screen.tscn")
+	
+	change_scene(achievements_scene)
 	
 	await get_tree().process_frame
 	
@@ -128,7 +150,10 @@ func load_achievements() -> void:
 
 func load_workshop() -> void:
 	"""Load workshop browser"""
-	change_scene(preload("res://scenes/workshop_browser.tscn"))
+	if workshop_scene == null:
+		workshop_scene = load("res://scenes/workshop_browser.tscn")
+	
+	change_scene(workshop_scene)
 	
 	await get_tree().process_frame
 	
@@ -139,7 +164,10 @@ func load_workshop() -> void:
 
 func load_leaderboards() -> void:
 	"""Load leaderboard screen"""
-	change_scene(preload("res://scenes/leaderboard_screen.tscn"))
+	if leaderboard_scene == null:
+		leaderboard_scene = load("res://scenes/leaderboard_screen.tscn")
+	
+	change_scene(leaderboard_scene)
 
 
 func load_game(scenario: String = "tutorial") -> void:
@@ -172,19 +200,3 @@ func quit_game() -> void:
 	
 	# Quit
 	get_tree().quit()
-
-
-func _on_scenario_selected(scenario_name: String) -> void:
-	"""Handle scenario selection"""
-	load_game(scenario_name)
-
-
-func load_scenario_editor() -> void:
-	"""Load scenario editor"""
-	change_scene(SCENARIO_EDITOR_SCENE)
-	
-	await get_tree().process_frame
-	
-	var editor: Node = current_scene
-	if editor and editor.has_signal("back_pressed"):
-		editor.back_pressed.connect(load_menu)

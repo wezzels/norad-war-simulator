@@ -1,10 +1,9 @@
 ; SCENE: Lobby Menu
 ; Multiplayer lobby for player management and chat
 
-[gd_scene load_steps=3 format=3 uid="uid://lobby_menu"]
+[gd_scene load_steps=2 format=3 uid="uid://lobby_menu"]
 
 [ext_resource type="Script" path="res://scripts/ui/lobby_menu.gd" id="1_lobby"]
-[ext_resource type="Script" path="res://scripts/ui/button_animations.gd" id="2_anim"]
 
 [node name="LobbyMenu" type="Control"]
 layout_mode = 3
@@ -13,7 +12,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = preload("res://themes/game_theme.tres")
 script = ExtResource("1_lobby")
 
 [node name="Background" type="ColorRect" parent="."]

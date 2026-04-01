@@ -56,7 +56,7 @@ func _create_achievement_row(achievement: Dictionary) -> HBoxContainer:
 	# Icon (placeholder)
 	var icon: TextureRect = TextureRect.new()
 	icon.custom_minimum_size = Vector2(48, 48)
-	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTER
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	# Would load actual icon: icon.texture = load("res://assets/achievements/%s.png" % id)
 	row.add_child(icon)
 	

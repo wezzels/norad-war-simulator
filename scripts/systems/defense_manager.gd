@@ -49,6 +49,13 @@ var doctrine: Doctrine = Doctrine.SHOOT_LOOK_SHOOT
 var interceptors_per_target: int = 2  # Default number of interceptors per target
 
 
+# Type-specific stats (mutable copy for runtime modifications)
+var TYPE_STATS: Dictionary = {
+	"GBI": {"range": 5000.0, "altitude": 2000.0, "speed": 8.0, "success_base": 0.7},
+	"THAAD": {"range": 200.0, "altitude": 150.0, "speed": 2.8, "success_base": 0.6},
+	"Patriot": {"range": 160.0, "altitude": 24.0, "speed": 1.5, "success_base": 0.5}
+}
+
 func _ready() -> void:
 	# Connect to game state
 	GameState.missile_launched.connect(_on_missile_launched)
@@ -71,7 +78,7 @@ func can_intercept(missile: Dictionary, interceptor_type: String = "GBI") -> boo
 		return false
 	
 	var distance: float = calculate_distance(nearest_site.position, missile_pos)
-	var max_range: float = Interceptor.TYPE_STATS[interceptor_type].range
+	var max_range: float = TYPE_STATS[interceptor_type].range
 	
 	return distance <= max_range
 
@@ -112,7 +119,7 @@ func launch_interceptor(missile_id: String, interceptor_type: String = "GBI", si
 	var site_pos: Vector3 = lat_lon_to_3d(site.lat, site.lon, 100.0)
 	
 	# Calculate success chance based on phase
-	var success_chance: float = Interceptor.TYPE_STATS[interceptor_type].success_base
+	var success_chance: float = TYPE_STATS[interceptor_type].success_base
 	match missile.get("status", "midcourse"):
 		"boost":
 			success_chance *= 0.5
@@ -227,7 +234,7 @@ func _on_missile_launched(missile: Dictionary) -> void:
 	if Settings.gameplay.get("auto_intercept", false):
 		await get_tree().create_timer(1.0).timeout  # Brief delay
 		if can_intercept(missile, "GBI"):
-			launch_intercept(missile.id, "GBI")
+			launch_interceptor(missile.id, "GBI")
 
 
 func get_inventory_status() -> Dictionary:

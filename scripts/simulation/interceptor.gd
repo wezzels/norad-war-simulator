@@ -30,15 +30,14 @@ var target_position: Vector3 = Vector3.ZERO
 var current_position: Vector3 = Vector3.ZERO
 var flight_time: float = 0.0
 
-# Type-specific stats
-const TYPE_STATS: Dictionary = {
+# Type-specific stats (static reference)
+static var TYPE_STATS: Dictionary = {
 	"GBI": {"range": 5000.0, "altitude": 2000.0, "speed": 8.0, "success_base": 0.7},
 	"THAAD": {"range": 200.0, "altitude": 150.0, "speed": 2.8, "success_base": 0.6},
 	"Patriot": {"range": 160.0, "altitude": 24.0, "speed": 1.5, "success_base": 0.5}
 }
 
 # Visual
-@onready var trail: Line3D = $Trail
 var trail_points: Array[Vector3] = []
 const MAX_TRAIL_POINTS: int = 50
 
@@ -69,10 +68,8 @@ func initialize(target_id: String, launch_pos: Vector3, target_pos: Vector3, suc
 	active = true
 	launched.emit(self)
 	
-	# Initialize trail
-	if trail:
-		trail.clear_points()
-		trail_points.clear()
+	# Clear trail points
+	trail_points.clear()
 
 
 func _process(delta: float) -> void:
@@ -111,17 +108,11 @@ func update_position() -> void:
 
 func update_trail() -> void:
 	"""Update trail effect"""
-	if not trail:
-		return
-	
 	trail_points.append(global_position)
 	
 	if trail_points.size() > MAX_TRAIL_POINTS:
 		trail_points.pop_front()
-	
-	trail.clear_points()
-	for point: Vector3 in trail_points:
-		trail.add_point(point)
+	# Trail visualization would be done via particle system or mesh
 
 
 func complete_intercept() -> void:

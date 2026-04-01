@@ -4,8 +4,6 @@
 
 extends Node
 
-class_name StateSync
-
 # Sync settings
 const SYNC_RATE: float = 20.0  # Updates per second
 const INTERPOLATION_DELAY: float = 0.05  # 50ms interpolation buffer
